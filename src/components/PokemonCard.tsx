@@ -1,8 +1,16 @@
 import { useState } from "react";
 import FetchButton from "./FetchButton";
 
+interface Pokemon {
+  name: string;
+  sprites: {
+    front_default: string;
+  };
+  types: { type: { name: string } }[];
+}
+
 function PokemonCard() {
-  const [pokemon, setPokemon] = useState(null);
+  const [pokemon, setPokemon] = useState<Pokemon | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -37,13 +45,26 @@ function PokemonCard() {
           Random Pokémon Generator
         </h1>
 
-        <div className="mb-8 min-h-80 flex flex-col items-center justify-center">
-          <div className="text-center text-gray-500">
-            <p>Click the button below to show a random Pokémon!</p>
+        {pokemon && !loading && (
+          <div className="text-center">
+            <img
+              src={pokemon.sprites.front_default}
+              alt={pokemon.name}
+              className="w-48 h-48 mx-auto mb-4 object-contain"
+            />
+            <h2 className="text-2xl font-bold capitalize mb-2 text-gray-800">
+              {pokemon.name}
+            </h2>
+            <div className="space-y-2 text-sm text-gray-600">
+              <p>
+                <strong>Type(s):</strong>{" "}
+                {pokemon.types.map((type) => type.type.name).join(", ")}
+              </p>
+            </div>
           </div>
-        </div>
+        )}
       </div>
-      <FetchButton onClick={fetchRandomPokemon} />
+      <FetchButton onClick={fetchRandomPokemon} loading={loading} />
     </div>
   );
 }
