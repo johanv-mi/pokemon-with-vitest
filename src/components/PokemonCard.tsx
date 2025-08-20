@@ -1,4 +1,5 @@
 import { useState } from "react";
+import FetchButton from "./FetchButton";
 
 function PokemonCard() {
   const [pokemon, setPokemon] = useState(null);
@@ -22,7 +23,7 @@ function PokemonCard() {
 
       const pokemonData = await response.json();
       setPokemon(pokemonData);
-    } catch (err) {
+    } catch (err: any) {
       setError(err.message);
     } finally {
       setLoading(false);
@@ -38,10 +39,11 @@ function PokemonCard() {
 
         <div className="mb-8 min-h-80 flex flex-col items-center justify-center">
           <div className="text-center text-gray-500">
-            <p>Click the button below to catch a random Pokémon!</p>
+            <p>Click the button below to show a random Pokémon!</p>
           </div>
         </div>
       </div>
+      <FetchButton onClick={fetchRandomPokemon} />
     </div>
   );
 }
