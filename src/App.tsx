@@ -1,11 +1,9 @@
-import CounterButton from "./components/CounterButton";
+import PokemonCard from "./components/PokemonCard";
 
 function App() {
   return (
     <div>
-      <h1>Vite + React</h1>
-
-      <CounterButton />
+      <PokemonCard />
     </div>
   );
 }
