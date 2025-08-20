@@ -5,6 +5,30 @@ function PokemonCard() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  const fetchRandomPokemon = async () => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      const randomId = Math.floor(Math.random() * 1010) + 1;
+
+      const response = await fetch(
+        `https://pokeapi.co/api/v2/pokemon/${randomId}`
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch Pokémon");
+      }
+
+      const pokemonData = await response.json();
+      setPokemon(pokemonData);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-blue-400 to-purple-600 p-4">
       <div className="bg-white rounded-lg shadow-2xl p-8 max-w-md w-full">
