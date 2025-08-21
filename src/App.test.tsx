@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import App from "../src/App";
 
@@ -33,11 +33,29 @@ describe("App flow", () => {
     mockFetch.mockResolvedValueOnce({
       ok: true,
       json: async () => mockPokemon,
-    }),
-      render(<App />);
+    });
+
+    render(<App />);
 
     fireEvent.click(screen.getByRole("button"));
 
     expect(screen.getByText("CATCHING POKÉMON...")).toBeInTheDocument();
+
+    await waitFor(() => {
+      expect(screen.getByText("charmander")).toBeInTheDocument();
+      expect(screen.getByText("fire")).toBeInTheDocument();
+      expect(screen.getByAltText("charmander")).toBeInTheDocument();
+    });
+  });
+
+  it("shows error message if fetch fails", async () => {
+    mockFetch.mockRejectedValueOnce(new Error("API Down"));
+
+    render(<App />);
+    fireEvent.click(screen.getByRole("button"));
+
+    await waitFor(() => {
+      expect(screen.getByText("ERROR!")).toBeInTheDocument();
+    });
   });
 });
