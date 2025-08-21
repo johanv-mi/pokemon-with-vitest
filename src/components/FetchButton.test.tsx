@@ -8,27 +8,24 @@ describe("FetchButton", () => {
   beforeEach(() => {
     mockOnClick.mockClear();
   });
-});
 
-it("displays default text when not loading", () => {
-  const mockOnClick = vi.fn();
-  render(<FetchButton onClick={mockOnClick} loading={false} />);
+  it("displays default text when not loading", () => {
+    render(<FetchButton onClick={mockOnClick} loading={false} />);
 
-  expect(screen.getByText("WHO'S THAT POKÈMON?")).toBeInTheDocument();
-});
+    expect(screen.getByText("WHO'S THAT POKÈMON?")).toBeInTheDocument();
+  });
 
-it("displays loading text when loading is true", () => {
-  const mockOnClick = vi.fn();
-  render(<FetchButton onClick={mockOnClick} loading={true} />);
+  it("displays loading text when loading is true", () => {
+    render(<FetchButton onClick={mockOnClick} loading={true} />);
 
-  expect(screen.getByText("CATCHING...")).toBeInTheDocument();
-});
+    expect(screen.getByText("CATCHING...")).toBeInTheDocument();
+  });
 
-it("should not call onClick when clicked and loading", () => {
-  const mockOnClick = vi.fn();
-  render(<FetchButton onClick={mockOnClick} loading={true} />);
-  const button = screen.getByRole("button");
-  fireEvent.click(button);
+  it("should not call onClick when clicked and loading", () => {
+    render(<FetchButton onClick={mockOnClick} loading={true} />);
+    const button = screen.getByRole("button");
+    fireEvent.click(button);
 
-  expect(mockOnClick).not.toHaveBeenCalled();
+    expect(mockOnClick).not.toHaveBeenCalled();
+  });
 });
