@@ -5,7 +5,7 @@ import App from "../src/App";
 describe("App", () => {
   it("should renders headline", () => {
     render(<App />);
-    const headline = screen.getByText("Vite + React");
+    const headline = screen.getByText("POKÉMON GENERATOR");
     expect(headline).toBeInTheDocument();
   });
 });
