@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import FetchButton from "./FetchButton";
 
@@ -22,4 +22,13 @@ it("displays loading text when loading is true", () => {
   render(<FetchButton onClick={mockOnClick} loading={true} />);
 
   expect(screen.getByText("CATCHING...")).toBeInTheDocument();
+});
+
+it("should not call onClick when clicked and loading", () => {
+  const mockOnClick = vi.fn();
+  render(<FetchButton onClick={mockOnClick} loading={true} />);
+  const button = screen.getByRole("button");
+  fireEvent.click(button);
+
+  expect(mockOnClick).not.toHaveBeenCalled();
 });
