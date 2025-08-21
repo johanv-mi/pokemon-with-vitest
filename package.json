@@ -14,11 +14,13 @@
     "coverage": "vitest --coverage"
   },
   "dependencies": {
+    "@tailwindcss/vite": "^4.1.12",
     "@testing-library/jest-dom": "^6.7.0",
     "@testing-library/react": "^16.3.0",
     "jsdom": "^26.1.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
+    "tailwindcss": "^4.1.12",
     "vitest": "^3.2.4"
   },
   "devDependencies": {
