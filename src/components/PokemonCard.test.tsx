@@ -66,6 +66,23 @@ describe("PokemonCard", () => {
     expect(screen.getByAltText("pikachu")).toBeInTheDocument();
   });
 
+  it("displays error when API responds with ok=false", async () => {
+    mockFetch.mockResolvedValueOnce({
+      ok: false,
+      json: async () => ({}),
+    });
+
+    render(<PokemonCard />);
+    const button = screen.getByRole("button");
+    fireEvent.click(button);
+
+    await waitFor(() => {
+      expect(screen.getByText("ERROR!")).toBeInTheDocument();
+    });
+
+    expect(screen.getByText("Failed to fetch Pokémon")).toBeInTheDocument();
+  });
+
   beforeEach(() => {
     mockFetch.mockClear();
   });
@@ -84,6 +101,44 @@ describe("PokemonCard", () => {
 
     await waitFor(() => {
       expect(screen.getByText("ERROR!")).toBeInTheDocument();
+    });
+  });
+
+  it("disables the button while loading", async () => {
+    mockFetch.mockImplementation(() => new Promise(() => {}));
+
+    render(<PokemonCard />);
+    const button = screen.getByRole("button");
+
+    fireEvent.click(button);
+    expect(button).toBeDisabled();
+  });
+
+  it("falls back to default sprite if official artwork is missing", async () => {
+    const mockPokemonData = {
+      name: "bulbasaur",
+      sprites: {
+        front_default: "https://example.com/bulbasaur.png",
+        other: {},
+      },
+      types: [{ type: { name: "grass" } }],
+    };
+
+    mockFetch.mockResolvedValueOnce({
+      ok: true,
+      json: async () => mockPokemonData,
+    });
+
+    render(<PokemonCard />);
+
+    const button = screen.getByRole("button");
+    fireEvent.click(button);
+
+    await waitFor(() => {
+      expect(screen.getByAltText("bulbasaur")).toHaveAttribute(
+        "src",
+        "https://example.com/bulbasaur.png"
+      );
     });
   });
 });

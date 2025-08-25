@@ -1,19 +1,22 @@
-# Kodbas för Enhets- och integrationstestning av React komponenter.
+# Pokémon Randomizer
+
+## About
+
+Small project to learn about testing with Vitest for a class at Medieinstitutet in Gothenburgh's front end developer program.
+The app fetches a random pokémon from the PokeAPI when the button is clicked and displays some info about the pokémon. Vitest is used to ensure that the app works as intended and catches any potential issues with the API.
 
 ## Installation
 
-Kör `npm install` för att installera alla paket.
+Run `npm install` to install packages
 
-## Utveckling
+## Development
 
-Kör `npm run dev` för att starta utvecklingsservern.
+Run `npm run dev` to start the development server.
 
-## Testning
+## Testing
 
-Kör `npm test` för att köra testerna. Kan köras utan att utvecklingsservern är igång.
+Run `npm test` to run the tests. (Can be done w/o running the dev server)
 
 ## Coverage
 
-Kör `npm run coverage` för att se hur stor del av kodbasen som testerna täcker.
-
-Observera att det nu finns en mapp [coverage](./coverage) med en massa filer (en hemsida). Du kan starta [index.html](./coverage/index.html) filen med live server för att öppna hemsidan. Där ser du mer detaljer om vad dina tester faktiskt testar och inte.
+Run `npm run coverage` to see how much of the code base is covered by the tests.

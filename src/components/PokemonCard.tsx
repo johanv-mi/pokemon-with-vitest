@@ -26,7 +26,7 @@ function FetchButton({
       disabled={loading}
       className="w-full bg-red-500 hover:bg-red-600 disabled:bg-gray-400 text-white border-4 border-black p-3 sm:p-4 lg:p-6 font-black uppercase text-sm sm:text-lg lg:text-xl tracking-wider transition-colors"
     >
-      {loading ? "CATCHING..." : "CATCH POKÉMON!"}
+      {loading ? "CATCHING..." : "WHO'S THAT POKÈMON?"}
     </button>
   );
 }
